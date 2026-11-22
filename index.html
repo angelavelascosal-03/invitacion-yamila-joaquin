@@ -1,0 +1,276 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yamila & Joaquín | Nuestra boda</title>
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Georgia, serif;
+      color: #65443f;
+      background: #f8f1e8;
+      text-align: center;
+    }
+
+    .cover {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 30px 20px;
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(ellipse at top left, #e9c9c2 0, transparent 35%),
+        radial-gradient(ellipse at bottom right, #c6cbb2 0, transparent 38%),
+        #f8f1e8;
+    }
+
+    .flowers {
+      position: absolute;
+      font-size: 42px;
+      opacity: .65;
+      pointer-events: none;
+    }
+
+    .flower-one { top: 7%; left: 7%; transform: rotate(-20deg); }
+    .flower-two { top: 12%; right: 8%; transform: rotate(18deg); }
+    .flower-three { bottom: 8%; left: 9%; transform: rotate(15deg); }
+    .flower-four { bottom: 10%; right: 7%; transform: rotate(-15deg); }
+
+    .eyebrow {
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      font-size: 11px;
+      color: #8b7964;
+    }
+
+    h1 {
+      font-size: clamp(38px, 8vw, 65px);
+      font-weight: normal;
+      margin: 20px 0 10px;
+      color: #793e4d;
+    }
+
+    .date {
+      letter-spacing: 3px;
+      font-size: 14px;
+      margin-bottom: 35px;
+    }
+
+    .envelope {
+      width: 240px;
+      height: 155px;
+      position: relative;
+      cursor: pointer;
+      border: 0;
+      background: transparent;
+      margin: 15px auto;
+      perspective: 700px;
+    }
+
+    .envelope-back {
+      position: absolute;
+      inset: 0;
+      background: #b9a98c;
+      border-radius: 5px;
+    }
+
+    .envelope-front {
+      position: absolute;
+      inset: 0;
+      background: #d8c8aa;
+      clip-path: polygon(0 0, 50% 58%, 100% 0, 100% 100%, 0 100%);
+      border-radius: 5px;
+      z-index: 2;
+    }
+
+    .flap {
+      position: absolute;
+      inset: 0;
+      background: #c5b18f;
+      clip-path: polygon(0 0, 100% 0, 50% 62%);
+      transform-origin: top;
+      transition: transform 1s ease;
+      z-index: 3;
+    }
+
+    .seal {
+      position: absolute;
+      z-index: 4;
+      top: 62px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: #914e59;
+      color: #fff1e6;
+      display: grid;
+      place-items: center;
+      font-size: 18px;
+    }
+
+    .letter {
+      position: absolute;
+      width: 88%;
+      height: 90%;
+      left: 6%;
+      top: 5%;
+      background: #fffaf1;
+      transition: transform 1s ease;
+      z-index: 1;
+      display: grid;
+      place-items: center;
+      font-size: 13px;
+      letter-spacing: 2px;
+      color: #8b5960;
+    }
+
+    .envelope.open .flap { transform: rotateX(180deg); z-index: 0; }
+    .envelope.open .letter { transform: translateY(-90px); z-index: 5; }
+    .envelope.open .seal { opacity: 0; }
+
+    .hint {
+      font-size: 13px;
+      letter-spacing: 1px;
+      margin-top: 20px;
+      color: #89776d;
+    }
+
+    #invitation {
+      display: none;
+      padding: 65px 22px;
+      min-height: 100vh;
+      background: #fffaf2;
+      animation: appear 1.2s ease;
+    }
+
+    #invitation.show { display: block; }
+
+    @keyframes appear {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .divider {
+      color: #a66b70;
+      font-size: 24px;
+      margin: 25px;
+    }
+
+    .message {
+      max-width: 520px;
+      margin: 25px auto;
+      line-height: 1.9;
+      font-size: 17px;
+    }
+
+    .countdown {
+      margin: 35px auto;
+      color: #793e4d;
+      font-size: 20px;
+      line-height: 1.8;
+    }
+
+    .footer {
+      font-size: 12px;
+      letter-spacing: 2px;
+      color: #9a8273;
+      margin-top: 55px;
+    }
+
+    button:focus-visible {
+      outline: 3px solid #793e4d;
+      outline-offset: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <main class="cover" id="cover">
+    <span class="flowers flower-one">✿</span>
+    <span class="flowers flower-two">❀</span>
+    <span class="flowers flower-three">✿</span>
+    <span class="flowers flower-four">❀</span>
+
+    <p class="eyebrow">Con mucha alegría te invitamos a celebrar</p>
+    <h1>Yamila & Joaquín</h1>
+    <p class="date">12 · FEBRERO · 2027</p>
+
+    <button class="envelope" id="envelope" aria-label="Abrir invitación">
+      <div class="envelope-back"></div>
+      <div class="letter">UNA INVITACIÓN ESPECIAL</div>
+      <div class="flap"></div>
+      <div class="envelope-front"></div>
+      <div class="seal">♥</div>
+    </button>
+
+    <p class="hint">Tocá el sobre para abrir tu invitación</p>
+  </main>
+
+  <section id="invitation">
+    <p class="eyebrow">¡Nos casamos!</p>
+    <h1>Yamila & Joaquín</h1>
+    <div class="divider">❀</div>
+
+    <p class="message">
+      Hay momentos que se vuelven inolvidables cuando
+      los compartimos con las personas que queremos.
+      <br><br>
+      Nos encantaría que nos acompañes en este día
+      tan especial de nuestras vidas.
+    </p>
+
+    <div class="divider">✿</div>
+    <p class="eyebrow">Nuestra fecha especial</p>
+    <div class="countdown" id="countdown">Preparando la cuenta regresiva...</div>
+
+    <p class="footer">CON AMOR · YAMILA & JOAQUÍN</p>
+  </section>
+
+  <script>
+    const envelope = document.getElementById("envelope");
+    const invitation = document.getElementById("invitation");
+
+    envelope.addEventListener("click", () => {
+      envelope.classList.add("open");
+
+      setTimeout(() => {
+        document.getElementById("cover").style.display = "none";
+        invitation.classList.add("show");
+      }, 1400);
+    });
+
+    const weddingDate = new Date("2027-02-12T00:00:00");
+
+    function updateCountdown() {
+      const now = new Date();
+      const difference = weddingDate - now;
+      const countdown = document.getElementById("countdown");
+
+      if (difference <= 0) {
+        countdown.textContent = "¡Llegó nuestro día especial!";
+        return;
+      }
+
+      const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((difference / (1000 * 60)) % 60);
+
+      countdown.textContent =
+        days + " días · " + hours + " horas · " + minutes + " minutos";
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 60000);
+  </script>
+
+</body>
+</html>
